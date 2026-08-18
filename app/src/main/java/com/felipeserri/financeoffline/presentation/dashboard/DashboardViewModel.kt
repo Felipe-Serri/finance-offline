@@ -15,11 +15,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+import com.felipeserri.financeoffline.presentation.components.TransactionWithCategory
 
-data class TransactionWithCategory(
-    val transaction: Transaction,
-    val category: Category?
-)
 
 data class DashboardUiState(
     val balance: Resource<Long> = Resource.Loading,

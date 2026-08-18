@@ -27,11 +27,15 @@ fun FinanceNavHost(
             DashboardScreen()
         }
         composable<Destination.Transactions> {
-            TransactionsScreen()
+            TransactionsScreen(
+                onAddTransaction = { navController.navigate(Destination.AddEditTransaction()) },
+                onEditTransaction = { id -> navController.navigate(Destination.AddEditTransaction(transactionId = id)) }
+            )
         }
-        composable<Destination.AddEditTransaction> { backStackEntry ->
-            val args = backStackEntry.toRoute<Destination.AddEditTransaction>()
-            AddEditTransactionScreen(transactionId = args.transactionId)
+        composable<Destination.AddEditTransaction> {
+            AddEditTransactionScreen(
+                onSaved = { navController.popBackStack() }
+            )
         }
         composable<Destination.Categories> {
             CategoriesScreen()
