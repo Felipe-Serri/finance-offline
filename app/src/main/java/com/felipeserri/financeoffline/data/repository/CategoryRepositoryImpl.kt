@@ -4,6 +4,7 @@ import com.felipeserri.financeoffline.data.local.dao.CategoryDao
 import com.felipeserri.financeoffline.data.mapper.toDomain
 import com.felipeserri.financeoffline.data.mapper.toEntity
 import com.felipeserri.financeoffline.domain.model.Category
+import com.felipeserri.financeoffline.domain.model.CategoryInUseException
 import com.felipeserri.financeoffline.domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -28,6 +29,10 @@ class CategoryRepositoryImpl @Inject constructor(
     }
 
     override suspend fun delete(category: Category) {
-        dao.delete(category.toEntity())
+        try {
+            dao.delete(category.toEntity())
+        } catch (e: android.database.sqlite.SQLiteConstraintException) {
+            throw CategoryInUseException()
+        }
     }
 }

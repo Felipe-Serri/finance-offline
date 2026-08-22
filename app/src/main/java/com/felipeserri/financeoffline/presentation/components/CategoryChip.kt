@@ -15,13 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.felipeserri.financeoffline.presentation.util.colorForHex
 import com.felipeserri.financeoffline.ui.theme.Spacing
 
 @Composable
 fun CategoryChip(name: String, colorHex: String, modifier: Modifier = Modifier) {
-    val chipColor = remember(colorHex) {
-        runCatching { Color(android.graphics.Color.parseColor(colorHex)) }.getOrDefault(Color.Gray)
-    }
+    val chipColor = remember(colorHex) { colorForHex(colorHex) }
 
     Surface(
         modifier = modifier,
